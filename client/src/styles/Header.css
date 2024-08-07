@@ -1,0 +1,46 @@
+header {
+  padding: 6px 20px;
+  background-color: #121317;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #636060;
+}
+
+header .logo_img {
+  width: 70px;
+  margin-bottom: 0px;
+}
+
+header nav ul {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+}
+
+header nav ul li {
+  margin-right: 20px;
+}
+
+header nav ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+.username {
+  color:white;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  color:white;
+}
+
+.user-info img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin: 10px 15px;
+  filter: invert(100%);
+}
