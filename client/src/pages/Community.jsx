@@ -12,7 +12,6 @@ const MainContent = () => {
     tags: [],
     rank: '1'
   });
-  const [userRank, setUserRank] = useState(1);
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {

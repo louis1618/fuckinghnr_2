@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import '../styles/Header.css';
 import logo from '../assets/img/logo_background.svg'
 import avator from '../assets/img/user-avatar.svg' 
