@@ -25,18 +25,7 @@ const MainContent = () => {
       }
     };
 
-    const fetchUserRank = async () => {
-      try {
-        const response = await fetch('/api/getClientUserInfo');
-        const data = await response.json();
-        setUserRank(data.rank);
-      } catch (error) {
-        console.error("Error fetching user rank:", error);
-      }
-    };
-
     fetchPosts();
-    fetchUserRank();
   }, []);
 
   const sortPosts = (posts) => {
