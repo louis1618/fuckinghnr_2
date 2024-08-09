@@ -4,7 +4,7 @@ const { MongoClient, ObjectId } = require('mongodb');
 const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
-const port = 3000;
+const port = 3001;
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
@@ -23,6 +23,10 @@ MongoClient.connect(uri)
     postsCollection = db.collection('posts');
   })
   .catch(error => console.error('Error connecting to MongoDB:', error));
+
+app.use(express.json());
+var cors = require('cors');
+app.use(cors());
 
 app.use(session({
     secret: process.env.SECRET_KEY,
