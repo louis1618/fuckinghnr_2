@@ -25,16 +25,16 @@ function Sidebar() {
           <i className="fa-solid fa-comments"></i> 메세지
         </NavLink>
         <NavLink
-          to="/community"
-          className={({ isActive }) => (isActive ? 'active' : '')}
-        >
-          <i className="fas fa-user-group"></i> 커뮤니티
-        </NavLink>
-        <NavLink
           to="/proxy"
           className={({ isActive }) => (isActive ? 'active' : '')}
         >
           <i className="fas fa-server fa-lg"></i> 웹 프록시
+        </NavLink>
+        <NavLink
+          to="/notice"
+          className={({ isActive }) => (isActive ? 'active' : '')}
+        >
+          <i className="fas fa-user-group"></i> 공지사항
         </NavLink>
       </nav>
     <div className="quick-links">

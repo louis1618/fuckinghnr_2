@@ -1,4 +1,48 @@
-.vote-header h1 {
-    margin: 0;
-    font-size: 24px;
-}
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .section-header h2 {
+    font-size: 20px;
+  }
+  
+  .create-button {
+    background-color: #393939;
+    color: white;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  
+  .item-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 0px;
+  }
+  
+  .item-card {
+    background-color: #121317;
+    border-radius: 8px;
+    padding: 20px;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  
+  .item-card:hover {
+    background-color: #2d2f36;
+    border:1px solid rgba(255, 255, 255, 0.716);
+  }
+  
+  
+  .item-card img {
+    width: 100%;
+    border-radius: 8px;
+  }
+  

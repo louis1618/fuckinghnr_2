@@ -114,7 +114,6 @@ app.get('/api/posts/:id', async (req, res) => {
   
       res.json(post);
     } catch (error) {
-      console.error('Error fetching post:', error);
       res.status(500).json({ message: 'Error fetching post' });
     }
   } else {

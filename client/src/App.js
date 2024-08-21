@@ -4,7 +4,7 @@ import './App.css';
 import LoadingScreen from './components/LoadingScreen';
 import Home from './pages/Home';
 import Vote from './pages/Vote';
-import Community from './pages/Community';
+import Notice from './pages/Notice';
 import Direct from './pages/direct';
 import Login from './pages/Login';
 import Proxy from './pages/Proxy';
@@ -76,6 +76,17 @@ function App() {
         {loading ? (
           <LoadingScreen progress={progress} />
         ) : (
+          // 배포할 때 이 코드대로 수정하지 않으면 좆될 것이 분명하니 시발 꼭 수정할 것.
+          // ==================================================================
+          //  <Route element={<PrivateRoute><MainLayout /></PrivateRoute>}>
+          //     <Route path="/home" element={<Home />} />
+          //     <Route path="/vote" element={<Vote />} />
+          //     <Route path="/notice" element={<Notice />} />
+          //     <Route path="/my/message" element={<Direct />} />
+          //     <Route path="/proxy" element={<Proxy />} />
+          //     <Route path="/posts/view/:id" element={<PostDetail/>} />
+          //  </Route>
+          // ==================================================================
           <Routes>
             <Route element={<GuestLayout />}>
               <Route path="/" element={isAuthenticated ? <Navigate to="/home" /> : <Login />} />
@@ -84,15 +95,16 @@ function App() {
             </Route>
 
             <Route element={<MainLayout />}>
+
             </Route>
 
             <Route element={<PrivateRoute><MainLayout /></PrivateRoute>}>
-            <Route path="/home" element={<Home />} />
-              <Route path="/vote" element={<Vote />} />
-              <Route path="/community" element={<Community />} />
-              <Route path="/my/message" element={<Direct />} />
-              <Route path="/proxy" element={<Proxy />} />
-              <Route path="/community/post/:id" element={<PostDetail/>} />
+                <Route path="/home" element={<Home />} />
+                <Route path="/vote" element={<Vote />} />
+                <Route path="/notice" element={<Notice />} />
+                <Route path="/my/message" element={<Direct />} />
+                <Route path="/proxy" element={<Proxy />} />
+                <Route path="/posts/view/:id" element={<PostDetail/>} />
             </Route>
 
             <Route element={<NoPage />}>
