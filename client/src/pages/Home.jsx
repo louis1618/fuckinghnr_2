@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/Home.css';
 import { NavLink } from 'react-router-dom';
+import avator from '../assets/img/user-avatar.svg' 
 
 const MainContent = () => {
   const [activeTab, setActiveTab] = useState('all');
@@ -64,13 +65,14 @@ const MainContent = () => {
   };
 
   const handleTagsChange = (e) => {
-    const tags = e.target.value.split(',').map(tag => tag.trim());
+    const inputValue = e.target.value;
+    
     setNewPost(prevPost => ({
       ...prevPost,
-      tags: tags
+      tags: inputValue.split(',').map(tag => tag.trim())
     }));
   };
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -101,97 +103,102 @@ const MainContent = () => {
 
   return (
     <section className="content">
-      <div className="community-header">
-        <button className="create-post-button" onClick={() => setShowPopup(true)}>
-          포스트 작성
-        </button>
-      </div>
-
-      {/* 오류 메시지 표시 */}
-      {errorMessage && <div className="error-message">{errorMessage}</div>}
-
-      {!errorMessage && (
-        <>
-          <div className="community-tabs">
-            <button 
-              className={`tab ${activeTab === 'all' ? 'active' : ''}`}
-              onClick={() => setActiveTab('all')}
-            >
-              전체
-            </button>
-            <button 
-              className={`tab ${activeTab === 'user' ? 'active' : ''}`}
-              onClick={() => setActiveTab('user')}
-            >
-              유저
-            </button>
-            <button 
-              className={`tab ${activeTab === 'admin' ? 'active' : ''}`}
-              onClick={() => setActiveTab('admin')}
-            >
-              관리자
-            </button>
-          </div>
-
-          <div className="community-posts">
-            {filteredPosts && filteredPosts.map(post => (
-              <NavLink to={`/posts/view/${post._id}`} key={post._id} className="post-item">
-                <div className="post-header">
-                  {post.author && <span className="post-author">{post.author}</span>}
-                  {post.date && <span className="post-date">{post.date}</span>}
-                </div>
-                <h2 className="post-title">{post.title}</h2>
-                <p className="post-description">{post.description}</p>
-                <div className="post-tags">
-                  {post.tags.map(tag => (
-                    <span key={tag} className="tag">#{tag}</span>
-                  ))}
-                </div>
-                {post.rank && <span className="post-rank">{post.rank}</span>}
-              </NavLink>
-            ))}
-          </div>
-        </>
-      )}
-
-      {showPopup && (
-        <div className="popup-overlay">
-          <div className="popup-container">
-            <button className="close-popup" onClick={handlePopupToggle}>×</button>
-            <h2>포스트 작성</h2>
-            <form onSubmit={handleSubmit}>
-              <label>
-                제목:
-                <input 
-                  type="text" 
-                  name="title" 
-                  value={newPost.title} 
-                  onChange={handleInputChange} 
-                />
-              </label>
-              <label>
-                내용:
-                <textarea 
-                  name="description" 
-                  value={newPost.description} 
-                  onChange={handleInputChange} 
-                />
-              </label>
-              <label>
-                태그 (쉼표로 구분):
-                <input 
-                  type="text" 
-                  name="tags" 
-                  value={newPost.tags.join(', ')} 
-                  onChange={handleTagsChange} 
-                />
-              </label>
-              <button type="submit">포스트 제출</button>
-            </form>
-            {errorMessage && <p className="error-message2">{errorMessage}</p>}
+      <div className="posts-layout-list">
+        <div className="community-header">
+          <div className="create-post-button" onClick={() => setShowPopup(true)}>
+          <img src={avator} alt="사용자 아바타" />
+            포스트 작성하기
           </div>
         </div>
-      )}
+
+        {/* 오류 메시지 표시 */}
+        {errorMessage && <div className="error-message">{errorMessage}</div>}
+
+        {!errorMessage && (
+          <>
+            <div className="community-tabs">
+              <button 
+                className={`tab ${activeTab === 'all' ? 'active' : ''}`}
+                onClick={() => setActiveTab('all')}
+              >
+                전체
+              </button>
+              <button 
+                className={`tab ${activeTab === 'user' ? 'active' : ''}`}
+                onClick={() => setActiveTab('user')}
+              >
+                유저
+              </button>
+              <button 
+                className={`tab ${activeTab === 'admin' ? 'active' : ''}`}
+                onClick={() => setActiveTab('admin')}
+              >
+                관리자
+              </button>
+            </div>
+
+            <div className="community-posts">
+              {filteredPosts && filteredPosts.map(post => (
+                <NavLink to={`/posts/view/${post._id}`} key={post._id} className="post-item">
+                  <div className="post-header">
+                    {post.author && <span className="post-author">{post.author}</span>}
+                    {post.date && <span className="post-date">{post.date}</span>}
+                  </div>
+                  <h2 className="post-title">{post.title}</h2>
+                  <p className="post-description">{post.description}</p>
+                  <div className="post-tags">
+                    {post.tags.map(tag => (
+                      <span key={tag} className="tag">#{tag}</span>
+                    ))}
+                  </div>
+                  {post.rank && <span className="post-rank">{post.rank}</span>}
+                </NavLink>
+              ))}
+            </div>
+          </>
+        )}
+
+        {showPopup && (
+          <div className="popup-overlay">
+            <div className="popup-container">
+              <button className="close-popup" onClick={handlePopupToggle}>×</button>
+              <h2>포스트 작성</h2>
+              <form onSubmit={handleSubmit}>
+                <label>
+                  제목:
+                  <input 
+                    type="text" 
+                    name="title" 
+                    value={newPost.title} 
+                    onChange={handleInputChange}
+                    required
+                  />
+                </label>
+                <label>
+                  내용:
+                  <textarea 
+                    name="description" 
+                    value={newPost.description} 
+                    onChange={handleInputChange}
+                    required
+                  />
+                </label>
+                <label>
+                  태그 (쉼표로 구분):
+                  <input 
+                    type="text" 
+                    name="tags" 
+                    value={newPost.tags.join(', ')} 
+                    onChange={handleTagsChange}
+                  />
+                </label>
+                <button type="submit">포스트 제출</button>
+              </form>
+              {errorMessage && <p className="error-message2">{errorMessage}</p>}
+            </div>
+          </div>
+        )}
+      </div>
     </section>
   );
 };
