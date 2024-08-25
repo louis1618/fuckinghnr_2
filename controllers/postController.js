@@ -49,28 +49,19 @@ async function createPost(req, res) {
             return res.status(404).json({ message: 'User not found' });
         }
         
-        if (newPost.title && newPost.description) {
-            if (Array.isArray(newPost.tags) && newPost.tags.length > 0) {
-                const hasValidTags = newPost.tags.every(tag => typeof tag === 'string' && tag.trim() !== '');
-                if (hasValidTags) {
-                    newPost.rank = user.rank === 5 ? "관리자" : "유저";
-                    newPost.date = formatDate(new Date());
-                    newPost.createdAt = new Date();
-                    newPost.author = userData.username;
-                    newPost.a_id = userData._id;
-
-                    await getPostsCollection().insertOne(newPost);
-                    const posts = await getPostsCollection().find().toArray();
-                    res.status(201).json(posts);
-                } else {
-                    res.status(400).json({ message: '비정상적인 행동이 간주되었습니다. [3]' });
-                }
-            } else {
-                res.status(400).json({ message: '비정상적인 행동이 간주되었습니다. [2]' });
-            }
+        if (newPost.title && newPost.description && (newPost.tags === undefined || (Array.isArray(newPost.tags) && (newPost.tags.length === 0 || newPost.tags.length > 0)))) {
+            newPost.rank = user.rank === 5 ? "관리자" : "유저";
+            newPost.date = formatDate(new Date());
+            newPost.createdAt = new Date();
+            newPost.author = userData.username;
+            newPost.a_id = userData._id;
+        
+            await getPostsCollection().insertOne(newPost);
+            const posts = await getPostsCollection().find().toArray();
+            res.status(201).json(posts);
         } else {
-            res.status(400).json({ message: '비정상적인 행동이 간주되었습니다. [1]' });
-        }
+            res.status(400).json({ message: '비정상적인 행동이 감지되었습니다.' });
+        }    
     } catch (error) {
         console.error('Error creating post:', error);
         res.status(500).json({ message: '서버 오류가 발생했습니다.' });
